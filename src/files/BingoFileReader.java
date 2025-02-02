@@ -32,7 +32,8 @@ public class BingoFileReader {
                     continue; // Skip empty lines
 
                 try {
-                    cards.add(readSingleCard(scanner));
+                    // The id is the first line before the numbers
+                    cards.add(readSingleCard(scanner, line));
                 } catch (RuntimeException e) {
                     // Ignore invalid cards
                 }
@@ -47,7 +48,7 @@ public class BingoFileReader {
      * @param scanner
      * @return the Bingo card
      */
-    private static BingoCard readSingleCard(Scanner scanner) {
+    private static BingoCard readSingleCard(Scanner scanner, String id) {
         int[] numbers = new int[BingoCard.SIZE * BingoCard.SIZE];
 
         // Read the numbers separated by commas and new lines every 5 numbers
@@ -73,7 +74,7 @@ public class BingoFileReader {
             }
         }
 
-        return new BingoCard(numbers);
+        return new BingoCard(numbers, id);
     }
 
     /**
